@@ -15,10 +15,9 @@ mail =Mail()
 def create_app():
     app = Flask(__name__)
     CORS(app)  # Enable CORS for the app
-    stripe.api_key = '<STRIPE_SECRET>'
     # Load configuration from a config file or object
     app.config['STRIPES_PUBLIC_KEY'] = 'pk_test_51RtO0LBlRMs7hY1PU5QaXrPlF9mLZtjXGBDJdv9vpxg1kM8wm0nZ4VBF0KWtRnvjSsI833eo3Jy6AHVx31a9rVrO003r8QSpuq'
-    app.config['STRIPES_SECRET_KEY'] = '<STRIPE_SECRET>'
+    # app.config['STRIPES_SECRET_KEY'] = '<STRIPE_SECRET>'
     app.config['SECRET_KEY'] = 'Dhummu2006143!'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
