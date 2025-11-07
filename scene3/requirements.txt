@@ -1,0 +1,11 @@
+# Scene 3 Dependencies
+# Updated by: Anissa Rmedi
+
+# Image Processing
+Pillow>=10.0.0
+
+# QR Code Generation
+qrcode[pil]>=7.4.2
+
+# HTTP Requests (for backend communication and image downloads)
+requests>=2.31.0

@@ -1,0 +1,15 @@
+[2025-10-30T22:19:56.645Z] Starting appserver: PORT=3000 npm run dev
+[2025-10-30T22:19:56.746Z] > harange-website@0.1.0 dev
+[2025-10-30T22:19:56.746Z] > next dev --webpack
+[2025-10-30T22:19:57.151Z]    ▲ Next.js 16.0.1 (webpack)
+[2025-10-30T22:19:57.151Z]    - Local:        http://localhost:3000
+[2025-10-30T22:19:57.151Z]    - Network:      http://192.168.1.29:3000
+[2025-10-30T22:19:57.151Z]  ✓ Starting...
+[2025-10-30T22:19:58.078Z]  ✓ Ready in 951ms
+[2025-10-30T22:20:10.982Z]  GET / 200 in 1183ms (compile: 1076ms, render: 106ms)
+[2025-10-30T22:20:17.848Z]  GET /contact 200 in 384ms (compile: 337ms, render: 48ms)
+[2025-10-30T22:20:17.854Z] [ERROR]  ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[2025-10-30T22:20:20.370Z]  GET /mosaic-of-voices 200 in 246ms (compile: 209ms, render: 36ms)
+[2025-10-30T22:20:20.371Z] [ERROR]  ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[2025-10-30T22:20:26.076Z]  GET /about-us 200 in 325ms (compile: 291ms, render: 34ms)
+[2025-10-30T22:20:26.081Z] [ERROR]  ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload

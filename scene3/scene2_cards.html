@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="scene2_cards.css" />
+    <link rel="stylesheet" href="global.css" />
+   
+</head>
+<body>
+    <div class="grid-wrap min-h-screen bg-gradient-to-br from-[#0a0e1a] via-[#0f1420] to-[#0a0e1a] p-8">
+        <!--Back Button-->  
+      
+         <!--Header--> 
+        <header class="max-w-7xl mx-auto mb-12" style="text-align:center; margin-bottom:1rem;">
+            <div >
+                 <div className="text-center mb-8 inline-block mb-4" style="box-shadow:0 0 20px rgba(199, 184, 255, 0.3),
+                0 0 40px rgba(199, 184, 255, 0.5),
+                0 0 20px rgba(199, 184, 255, 0.3);">
+            <h1  class="text-4xl text-[var(--soft-light)] px-6 py-2" style="font-size:2rem; margin:0 0 .5rem;">Resonance Collection</h1>
+           </div> 
+            </div>
+          
+            <p class="text-[var(--water-silver)] max-w-2xl mx-auto opacity-80" style="color:var(--water-silver); max-width:800px; margin:0 auto 1rem;">Explore reflections from our workshop. Tap any tile to discover who shared this thought, then collect the responses that resonate most deeply with you.</p>
+            <div class="collection-bar" style="margin-top:.75rem; border-color: rgba(199, 184, 255, 0.3); ">
+                <div class="text-[var(--soft-light)]" style='margin-right:.75rem; '>Your Collection</div>
+                <div id="slots" style="display:flex; gap:.5rem;">
+                    <div class="slot" data-index="0"></div>
+                    <div class="slot" data-index="1"></div>
+                    <div class="slot" data-index="2"></div>
+                    <div class="slot" data-index="3"></div>
+                </div>
+                <div class="collection-count" id="collectionCount">0/4</div>
+            </div>
+        </header>
+
+        <div class="cards" id="cardsContainer">
+           
+        </div>
+    </div>
+   <!-- MODAL -->
+<div id="story-modal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); backdrop-filter:blur(5px); justify-content:center; align-items:center; z-index:9999;">
+    <div style="background:#1b1b2f; color:#e6f0ff; padding:2rem; border-radius:16px; max-width:70%; max-height:90vh; overflow-y:auto; text-align:center;">
+      <button id="close-modal" style="float:right; background:none; border:none; color:#e6f0ff; font-size:1.5rem; cursor:pointer;">×</button>
+      <div id="modal-content" >
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("view-more")) {
+      e.preventDefault();
+      const card = e.target.closest(".face.back");
+      
+    
+      card.querySelector(".story-text").innerText = MOCK_RESPONSES.find(r => r.id == card.id.split("-").pop()).story;
+   
+      card.css
+      document.getElementById("modal-content").innerHTML = card.innerHTML
+  
+      document.getElementById("story-modal").style.display = "flex";
+    }
+  
+    if (e.target.id === "close-modal") {
+      document.getElementById("story-modal").style.display = "none";
+    }
+  });
+  </script>
+  
+
+    <script src="scene2_cards.js"></script>
+</body>
+</html>

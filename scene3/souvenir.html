@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Souvenir & Reflections</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+ .visual-description {
+    text-align: right;
+    margin-bottom: 15px;
+    font-style: italic;
+    color: #6c757d;
+    width: 100%;
+
+    white-space: nowrap;
+}
+        header {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        @media (max-width: 900px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .panel {
+            padding: 30px;
+        }
+        
+        .left-panel {
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            display:inline;
+            font-size: 1.5rem;
+            margin-left: 180px;
+            margin-bottom: 20px;
+            color: #1a2a6c;
+            text-align: right;
+            text-wrap: nowrap   ;
+        }
+        
+        .mosaic-container {
+    max-width: 00px; /* shrink the whole mosaic */
+    gap: 18px;  
+    
+        }
+        
+        .mosaic-item {
+        width: 450px;    /* adjust width as needed */
+        height: auto;    /* maintain aspect ratio */
+        border-radius: 10px; /* optional: rounded corners */
+        display: block;
+        margin-left: 45px; /* center the image */
+        }
+        
+        .mosaic-item:hover {
+            transform: scale(1.05);
+        }
+        
+.water-tank-container {
+    display: inline;
+    flex-direction: column;
+    align-items: flex-start;
+}
+        .water-tank {
+            width: 200px;
+            height: 250px;
+            background: linear-gradient(to bottom, #4facfe 0%, #4facfe 75%, #e0e0e0 75%, #e0e0e0 100%);
+            border-radius: 0px 10px 5px 5px;
+            position: relative;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: 3px solid #1a2a6c;
+        }
+        
+        .water-tank:before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            right: 20px;
+            height: 15px;
+            background: #1a2a6c;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .water-level {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75%;
+            background: linear-gradient(to top, #00f2fe, #4facfe);
+            border-radius: 0 0 5px 5px;
+            transition: height 1s ease;
+        }
+        
+        .reflection-questions {
+            margin-top: 20px;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+        }
+        
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .response-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .response-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
+        }
+        
+            .right-panel {
+                background: white;
+            }
+        
+        .user-info-form {
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a2a6c;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.2);
+        }
+        
+        .series-id {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #1a2a6c;
+            border: 1px dashed #1a2a6c;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-share {
+            background: #405DE6;
+            color: white;
+        }
+        
+        .btn-twitter {
+            background: #000000;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .share-section {
+            margin: 30px 0;
+        }
+        
+        .share-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .share-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .cta-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        #qrcode {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .website-link {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .save-indicator {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #28a745;
+            height: 20px;
+        }
+        
+        .visual-description {
+            display:inline;
+            text-align: left;
+            margin-top: 15px;
+            margin-left:105px;
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Digital Souvenir</h1>
+            <p class="subtitle">Capture your experience and share it with the world</p>
+        </header>
+        
+        <div class="content">
+            <!-- Left Panel: Visuals and Reflections -->
+            <div class="panel left-panel">
+                <!-- Digital Souvenir Mosaic -->
+                <div class="card">
+
+                    <div class="mosaic-container">
+                        <!-- <div class="mosaic-item" style="background: linear-gradient(135deg, #ff9a9e, #fad0c4);">
+                            Memory #1
+                        </div>
+                        <div class="mosaic-item" style="background: linear-gradient(135deg, #a1c4fd, #c2e9fb);">
+                            Memory #2
+                        </div>
+                        <div class="mosaic-item" style="background: linear-gradient(135deg, #ffecd2, #fcb69f);">
+                            Memory #3
+                        </div>
+                        <div class="mosaic-item" style="background: linear-gradient(135deg, #84fab0, #8fd3f4);">
+                            Memory #4
+                        </div> -->
+                        <h2 class="card-title">Digital Souvenir</h2>
+                        <p class="visual-description">A 2×2 mosaic of your unique digital journey</p>
+                        <div class="mosaic-container">
+                            <img id = "mosaicImage" class="mosaic-item" src="" alt="Digital Souvenir Mosaic">
+                        </div>
+
+
+                    
+                </div>
+                
+                <!-- Water Tank and Reflections -->
+                <div class="card">
+                    <div class="water-tank-container">
+                        <p class="visual-description">Water tank progress</p>
+
+                        <img id="screenshotImage" class="mosaic-item" src="" alt="Water Tank Screenshot" style="display: none;">
+                        
+                    </div>
+                    
+                    <div class="reflection-questions">
+                        <div class="question">
+                            <div class="question-text">1. What word best describes how you feel after exploring our installation?</div>
+                            <input type="text" class="response-input" id="feeling-word" placeholder="Enter one word that captures your feeling...">
+                            <div class="save-indicator" id="save-indicator-1"></div>
+                        </div>
+                        
+                        <div class="question">
+                            <div class="question-text">2. What is one insight/learning/reflection that you'll take away with you?</div>
+                            <textarea class="response-input" id="takeaway-insight" rows="3" placeholder="Share your key insight or learning..."></textarea>
+                            <div class="save-indicator" id="save-indicator-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+            
+            <!-- Right Panel: User Info and Actions -->
+
+                <!-- User Information Form -->
+                <div class="card">
+                    <h2 class="card-title">Your Information</h2>
+                    <div class="user-info-form">
+                        <div class="input-group">
+                            <label for="userName">Full Name *</label>
+                            <input type="text" id="userName" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="userCountry">Country *</label>
+                            <select id="userCountry" required>
+                                <option value="">Select your country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="KE">Kenya</option>
+                                <option value="ZM">Zambia</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="generate-btn">
+                            <i class="fas fa-camera"></i> Generate Souvenir
+                        </button>
+                    </div>
+                    
+                    <div class="series-id" id="seriesIdDisplay">
+                        Your Series ID will appear here
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="download-btn">
+                        <i class="fas fa-download"></i> Download Souvenir & Reflections
+                    </button>
+                    
+                    <div class="share-section">
+                        <h3 class="share-title">Share on Social Media</h3>
+                        <div class="share-buttons">
+                            <div class="share-btn" style="background: #405DE6;" onclick="shareOnInstagram()">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="share-btn" style="background: #1DA1F2;" onclick="shareOnTwitter()">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="share-btn" style="background: #3b5998;" onclick="shareOnFacebook()">
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                            <div class="share-btn" style="background: #0077b5;" onclick="shareOnLinkedIn()">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Call to Action -->
+                <div class="cta-section">
+                    <h3 class="cta-title">See All Contributors</h3>
+                    <p>Scan the QR code to visit our website and see all participants from around the world!</p>
+                    
+                    <div class="qr-container">
+                        <div id="qrcode"></div>
+                        <div class="website-link">https://www.girlswhoml.com/</div>
+<div style="margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 12px; text-align: center;">
+    <p style="color: white; margin-bottom: 15px; font-weight: 600;">See all contributors from around the world</p>
+    <button onclick="window.location.href='http://localhost:3000'" style="
+        width: 100%;
+        padding: 14px 28px;
+        background: white;
+        color: #667eea;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+        <i class="fas fa-arrow-right"></i> View Global Gallery
+    </button>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Thank you for participating</p>
+            <p>Your contribution </p>
+        </div>
+    </div>
+
+    <script>
+async function loadContributor(seriesId) {
+    try {
+        // fetch the contributor from backend using seriesId
+        const response = await fetch(`http://localhost:8001/contributors/${seriesId}`);
+        if (!response.ok) throw new Error("Failed to fetch contributor");
+        const data = await response.json();
+
+        document.getElementById("mosaicImage").src = data.mosaic_url;
+        const screenshotImg = document.getElementById("screenshotImage");
+        screenshotImg.src = data.screenshot_url;
+        screenshotImg.style.display = "block";
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+// Example usage
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const contributorId = params.get('id');
+
+    console.log(contributorId); 
+
+    // Replace this with dynamic series ID if you have it from user input or localStorage
+    loadContributor(contributorId);
+});
+
+async function updateContributorInfo() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const contributorId = params.get('id');
+        const userName = document.getElementById("userName").value;
+        const userCountry = document.getElementById("userCountry").value;
+
+        if (!userName || !userCountry) {
+            alert('Please enter your name and country');
+            return;
+        }
+
+        const response = await fetch(`http://localhost:8001/contributors/${contributorId}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: userName,
+                country: userCountry
+            })
+        });
+
+        if (response.ok) {
+            alert('✓ Your information has been saved!');
+            await loadContributor();
+        } else {
+            alert('Error saving information');
+        }
+    } catch (err) {
+        console.error('Error updating contributor:', err);
+    }
+}
+    </script>
+
+
+
+
+    <script>
+        // Generate QR Code
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: "https://www.girlswhoml.com/",
+                width: 150,
+                height: 150,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+
+        // Generate Series ID
+        function generateSeriesId() {
+            const timestamp = new Date().getTime().toString(36);
+            const random = Math.random().toString(36).substring(2, 8);
+            return `WC-${timestamp}-${random}`.toUpperCase();
+        }
+
+        // Auto-save functionality for reflection questions
+        const feelingInput = document.getElementById('feeling-word');
+        const insightInput = document.getElementById('takeaway-insight');
+        const saveIndicator1 = document.getElementById('save-indicator-1');
+        const saveIndicator2 = document.getElementById('save-indicator-2');
+        const userNameInput = document.getElementById('userName');
+        const userCountryInput = document.getElementById('userCountry');
+        const seriesIdDisplay = document.getElementById('seriesIdDisplay');
+        const generateBtn = document.getElementById('generate-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        
+        let userData = {
+            seriesId: '',
+            name: '',
+            country: '',
+            feeling: '',
+            insight: '',
+            mosaicImages: [
+                'static/cards/card1.jpg',
+                'static/cards/card2.jpg',
+                'static/cards/card3.jpg',
+                'static/cards/card4.jpg'
+            ],
+            waterTankImage: 'water-tank.jpg'
+        };
+        
+        let saveTimeout;
+        
+        function showSavedIndicator(indicatorElement) {
+            indicatorElement.textContent = "✓ Saved";
+            setTimeout(() => {
+                indicatorElement.textContent = "";
+            }, 2000);
+        }
+        
+        function saveUserData() {
+            localStorage.setItem('userSouvenirData', JSON.stringify(userData));
+        }
+        
+        feelingInput.addEventListener('input', function() {
+            clearTimeout(saveTimeout);
+            userData.feeling = feelingInput.value;
+            saveTimeout = setTimeout(() => {
+                saveUserData();
+                showSavedIndicator(saveIndicator1);
+            }, 1000);
+        });
+        
+        insightInput.addEventListener('input', function() {
+            clearTimeout(saveTimeout);
+            userData.insight = insightInput.value;
+            saveTimeout = setTimeout(() => {
+                saveUserData();
+                showSavedIndicator(saveIndicator2);
+            }, 1000);
+        });
+        
+        userNameInput.addEventListener('input', function() {
+            userData.name = userNameInput.value;
+        });
+        
+        userCountryInput.addEventListener('change', function() {
+            userData.country = userCountryInput.value;
+        });
+        
+        // Generate Souvenir
+        generateBtn.addEventListener('click', function() {
+            if (!userNameInput.value || !userCountryInput.value) {
+                alert('Please enter your name and country before generating your souvenir.');
+                return;
+            }
+            updateContributorInfo();
+            
+            userData.seriesId = generateSeriesId();
+            userData.name = userNameInput.value;
+            userData.country = userCountryInput.value;
+            
+            seriesIdDisplay.textContent = userData.seriesId;
+            saveUserData();
+            
+            // Simulate storing data on server
+            setTimeout(() => {
+                alert(`Your digital souvenir has been generated!\nSeries ID: ${userData.seriesId}`);
+            }, 500);
+        });
+        
+        // Download functionality
+        downloadBtn.addEventListener('click', function() {
+            if (!userData.seriesId) {
+                alert('Please generate your souvenir first.');
+                return;
+            }
+            
+            if (!feelingInput.value || !insightInput.value) {
+                alert('Please complete the reflection questions before downloading.');
+                return;
+            }
+            
+            // In a real implementation, this would generate a PDF or image with both visuals and reflections
+            alert('Your digital souvenir and reflections are being prepared for download. Thank you for sharing!');
+        });
+        
+        // Social Media Sharing Functions
+        function shareOnInstagram() {
+            alert('In a real implementation, this would share your mosaic image on Instagram. For now, please download your image and share it manually.');
+        }
+        
+        function shareOnTwitter() {
+            const text = `Check out my digital souvenir from the GirlsWhoML! ${userData.feeling ? `I'm feeling ${userData.feeling}. ` : ''}${window.location.href}`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareOnFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=My digital souvenir from the GirlWhoML!`;
+            window.open(url, '_blank');
+        }
+        
+        function shareOnLinkedIn() {
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Load previously saved data if it exists
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('userSouvenirData');
+            
+            if (savedData) {
+                userData = JSON.parse(savedData);
+                
+                if (userData.name) userNameInput.value = userData.name;
+                if (userData.country) userCountryInput.value = userData.country;
+                if (userData.feeling) feelingInput.value = userData.feeling;
+                if (userData.insight) insightInput.value = userData.insight;
+                if (userData.seriesId) seriesIdDisplay.textContent = userData.seriesId;
+            }
+        });
+    </script>
+</body>
+</html>
