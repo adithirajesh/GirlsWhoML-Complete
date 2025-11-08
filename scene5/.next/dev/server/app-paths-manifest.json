@@ -1,5 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/about-us/page": "app/about-us/page.js",
-  "/mosaic-of-voices/page": "app/mosaic-of-voices/page.js"
+  "/mosaic-of-voices/page": "app/mosaic-of-voices/page.js",
+  "/page": "app/page.js"
 }

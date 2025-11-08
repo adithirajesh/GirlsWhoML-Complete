@@ -42,6 +42,10 @@ def create_contributor(
     db.refresh(db_contrib)
 
     return db_contrib
+@router.get("/")
+def list_contributors(db: Session = Depends(get_db)):
+    contributors = db.query(models.Contributor).all()
+    return contributors
 
 @router.get("/{contrib_id}", response_model=schemas.ContributorOut)
 def get_contributor(contrib_id: int, db: Session = Depends(get_db)):

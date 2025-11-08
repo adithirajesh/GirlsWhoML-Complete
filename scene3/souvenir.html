@@ -56,11 +56,10 @@
             opacity: 0.9;
         }
         
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-        }
+.content {
+    display: flex;
+    flex-direction: column;
+}
         
         @media (max-width: 900px) {
             .content {
@@ -74,7 +73,7 @@
         
         .left-panel {
             background: #f8f9fa;
-            border-right: 1px solid #e9ecef;
+
         }
         
         .card {
@@ -85,21 +84,24 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        .card-title {
-            display:inline;
-            font-size: 1.5rem;
-            margin-left: 180px;
-            margin-bottom: 20px;
-            color: #1a2a6c;
-            text-align: right;
-            text-wrap: nowrap   ;
-        }
+.card-title {
+    display: block;
+    text-align: center;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    color: #1a2a6c;
+}
+
         
-        .mosaic-container {
-    max-width: 00px; /* shrink the whole mosaic */
-    gap: 18px;  
-    
-        }
+.mosaic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
         
         .mosaic-item {
         width: 450px;    /* adjust width as needed */
@@ -114,9 +116,11 @@
         }
         
 .water-tank-container {
-    display: inline;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* centers the mosaic + screenshot horizontally */
+    text-align: center;  /* centers text like the title */
+    gap: 15px;           /* optional: adds nice spacing between elements */
 }
         .water-tank {
             width: 200px;
@@ -356,14 +360,13 @@
             height: 20px;
         }
         
-        .visual-description {
-            display:inline;
-            text-align: left;
-            margin-top: 15px;
-            margin-left:105px;
-            font-style: italic;
-            color: #6c757d;
-        }
+
+.visual-description {
+    text-align: center;
+    font-style: italic;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
     </style>
 </head>
 <body>

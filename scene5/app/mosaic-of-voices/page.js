@@ -124,7 +124,7 @@
 //       <div
 //         ref={el => tileRefs.current['tile-0'] = el}
 //         className={getTileClass('tile-0', "absolute w-[400px] h-[400px] left-[80px] top-[623px] rounded-[20px]")}
-//         style={{backgroundColor: isClient ? tileColors[0] : '#D3D3D3'}}
+//         ft677
 //         onMouseEnter={() => setHoveredTile('tile-0')}
 //         onMouseLeave={() => setHoveredTile(null)}
 //       ></div>
@@ -350,9 +350,19 @@ export default function MosaicOfVoices() {
   useEffect(() => {
     setIsClient(true);
     const fetchMosaics = async () => {
-      const images = [];
-      for (let i = 1; i <= 24; i++) {
         try {
+          const res1 = await fetch('http://localhost:8001/contributors');
+          if (!res1.ok) {
+            console.error(`HTTP error ${res1.status} fetching contributors list`);
+            return;
+          }
+          const contributors = await res1.json();
+          const maxId = contributors.length > 0 ? Math.max(...contributors.map(c => c.id)) : 0;
+          console.log('Max contributor ID:', maxId);
+
+          const images=[];
+          for (let i = 25; i <= maxId; i++) {
+            try{
           console.log(`Fetching mosaic for contributor ${i}`);
           const res = await fetch(`http://localhost:8001/contributors/${i}`);
           if (!res.ok) {
@@ -370,7 +380,10 @@ export default function MosaicOfVoices() {
       }
       console.log('All mosaics fetched:', images);
       setTileImages(images);
-    };
+    } catch (err) {
+      console.error('Failed to fetch contributors list', err);
+    }
+  };
     fetchMosaics();
   }, []);
 
@@ -405,7 +418,7 @@ export default function MosaicOfVoices() {
   }, [isClient]);
 
   const getTileClass = (tileId, baseClass = '') => {
-    const isVisible = visibleTiles.has(tileId);
+    const isVisible = visibleTiles.has(tileId) || i < 12;
     return `${baseClass} transition-all duration-700 ease-out transform cursor-pointer ${
       isVisible
         ? 'opacity-100 translate-y-0 scale-100'
@@ -424,16 +437,22 @@ export default function MosaicOfVoices() {
     }, 100);
   };
 
-  const tilePositions = [
-    [80, 623], [521, 623], [961, 623],
-    [80, 1073], [521, 1073], [961, 1073],
-    [80, 1523], [521, 1523], [961, 1523],
-    [80, 1973], [521, 1973], [961, 1973],
-    [80, 2423], [521, 2423], [961, 2423],
-    [80, 2873], [521, 2873], [961, 2873],
-    [80, 3323], [521, 3323], [961, 3323],
-    [80, 3773], [521, 3773], [961, 3773]
-  ];
+const generateTilePositions = (count) => {
+  const positions = [];
+  const cols = 3;
+  const rowHeight = 450;
+  for (let i = 0; i < count; i++) {
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    const left = col === 0 ? 80 : col === 1 ? 521 : 961;
+    const top = 623 + (row * rowHeight);
+    positions.push([left, top]);
+  }
+  return positions;
+};
+
+// Then use it:
+const tilePositions = generateTilePositions(tileImages.length);
 
   return (
     <div className="relative w-full min-h-full bg-[#F5F3ED] flex flex-col items-center">
@@ -448,30 +467,38 @@ export default function MosaicOfVoices() {
           Every 2×2 tile here was chosen by a visitor — a fragment of resonance, representing voices lifted from invisibility into shared reflection.
         </p>
 
-        {Array.from({ length: showMore ? 24 : 12 }).map((_, i) => {
-          const [left, top] = tilePositions[i];
-          console.log(`Rendering tile ${i}, image:`, tileImages[i]);
-          return (
-            <div
-              key={`tile-${i}`}
-              ref={el => tileRefs.current[`tile-${i}`] = el}
-              className={getTileClass(`tile-${i}`, `absolute w-[400px] h-[400px] left-[${left}px] top-[${top}px] rounded-[20px]`)}
-              style={{
-                backgroundImage: tileImages[i] ? `url(${tileImages[i]})` : undefined,
-                backgroundColor: tileImages[i] ? undefined : '#D3D3D3',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '20px',
-              }}
-              onMouseEnter={() => {
-                console.log(`Hovered tile-${i}`);
-                setHoveredTile(`tile-${i}`);
-              }}
-              onMouseLeave={() => setHoveredTile(null)}
-            ></div>
-          );
-        })}
-
+{Array.from({ length: showMore ? tileImages.length : Math.min(12, tileImages.length) }).map((_, i) => {
+  const [left, top] = tilePositions[i];
+  const isVisible = visibleTiles.has(`tile-${i}`) || i < 12;  // ← Make first 12 visible initially
+  
+  console.log(`Rendering tile ${i}, position: [${left}, ${top}], image:`, tileImages[i]); // ← DEBUG
+  
+  return (
+    <div
+      key={`tile-${i}`}
+      ref={el => tileRefs.current[`tile-${i}`] = el}
+      style={{
+        position: 'absolute',
+        width: '400px',
+        height: '400px',
+        left: `${left}px`,
+        top: `${top}px`,
+        borderRadius: '20px',
+        backgroundImage: tileImages[i] ? `url(${tileImages[i]})` : undefined,
+        backgroundColor: tileImages[i] ? undefined : '#D3D3D3',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(8px) scale(0.95)',
+        transition: 'all 0.7s ease-out',
+        cursor: 'pointer',
+        zIndex: isVisible ? 10 : 1,
+      }}
+      onMouseEnter={() => setHoveredTile(`tile-${i}`)}
+      onMouseLeave={() => setHoveredTile(null)}
+    ></div>
+  );
+})}
         {!showMore && (
           <button
             onClick={handleViewMore}
